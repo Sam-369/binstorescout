@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bin Store Scout: verified Texas bin store listings</title>
+<meta name="description" content="Bin Store Scout lists Texas bin stores with daily prices, restock days and opening hours, each one checked by a real person. Launching soon in Houston.">
+<meta property="og:title" content="Bin Store Scout">
+<meta property="og:description" content="Verified Texas bin store listings: daily prices, restock days and hours, checked by a real person. Launching soon.">
+<meta property="og:url" content="https://binstorescout.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1D2B4F;
+    --ink-soft: #46557A;
+    --paper: #FFFFFF;
+    --page: #EFEBE3;
+    --kraft: #B98B55;
+    --kraft-deep: #8A6236;
+    --sticker: #FFD43B;
+    --sticker-ink: #1D2B4F;
+    --bar: #D7CBB8;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #EDE8DF;
+      --ink-soft: #B9B2A5;
+      --paper: #232B3F;
+      --page: #171D2C;
+      --kraft: #C99B63;
+      --kraft-deep: #E0B67F;
+      --bar: #3A4560;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  }
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+  header { display: flex; align-items: center; gap: .6rem; }
+  .mark {
+    width: 2.25rem; height: 2.25rem; border-radius: .35rem;
+    background: var(--kraft); position: relative; flex: none;
+  }
+  .mark::after {
+    content: ""; position: absolute; left: 0; right: 0; top: .55rem;
+    height: .3rem; background: var(--kraft-deep);
+  }
+  .brand { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 800; font-size: 1.25rem; letter-spacing: -.01em; }
+
+  .hero {
+    display: grid; gap: 3rem; align-items: center;
+    grid-template-columns: 1.15fr 1fr;
+    padding: 4rem 0 3.5rem;
+  }
+  h1 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.25rem);
+    line-height: 1.02; letter-spacing: -.025em; margin: 0 0 1.25rem;
+  }
+  .lede { font-size: 1.2rem; color: var(--ink-soft); max-width: 34rem; margin: 0 0 1.75rem; }
+  .status {
+    display: inline-block; background: var(--sticker); color: var(--sticker-ink);
+    font-weight: 600; padding: .45rem .9rem; border-radius: .3rem;
+    transform: rotate(-1.5deg);
+  }
+
+  /* The price ladder: the one memorable thing on the page */
+  .ladder { margin: 0;
+    background: var(--paper); border-radius: .5rem; padding: 1.5rem 1.5rem 1.25rem;
+    border-top: .5rem solid var(--kraft);
+  }
+  .ladder h2 { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-size: 1.15rem; font-weight: 800; margin: 0 0 .2rem; }
+  .ladder p { margin: 0 0 1.25rem; font-size: .95rem; color: var(--ink-soft); }
+  .bars { display: grid; grid-template-columns: repeat(7, 1fr); gap: .5rem; align-items: end; height: 13rem; }
+  .day { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .price { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 800; font-size: 1.05rem; margin-bottom: .3rem; }
+  .bar { width: 100%; background: var(--bar); border-radius: .25rem .25rem 0 0; transform-origin: bottom; }
+  .day:first-child .bar { background: var(--kraft); }
+  .name { font-size: .85rem; color: var(--ink-soft); margin-top: .4rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .bar { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+    .day:nth-child(2) .bar { animation-delay: .06s; }
+    .day:nth-child(3) .bar { animation-delay: .12s; }
+    .day:nth-child(4) .bar { animation-delay: .18s; }
+    .day:nth-child(5) .bar { animation-delay: .24s; }
+    .day:nth-child(6) .bar { animation-delay: .30s; }
+    .day:nth-child(7) .bar { animation-delay: .36s; }
+  }
+  @keyframes rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 2.5rem 0; border-top: 2px solid var(--bar); }
+  .facts h3 { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 800; font-size: 1.2rem; margin: 0 0 .4rem; }
+  .facts p { margin: 0; color: var(--ink-soft); }
+
+  .owners {
+    background: var(--ink); color: var(--page); border-radius: .5rem;
+    padding: 2rem; display: flex; gap: 2rem; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  }
+  @media (prefers-color-scheme: dark) { .owners { background: var(--paper); color: var(--ink); } }
+  .owners h2 { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-weight: 800; font-size: 1.5rem; margin: 0 0 .3rem; }
+  .owners p { margin: 0; max-width: 34rem; opacity: .85; }
+  .owners a {
+    display: inline-block; background: var(--sticker); color: var(--sticker-ink);
+    font-weight: 600; text-decoration: none; padding: .8rem 1.2rem; border-radius: .35rem;
+  }
+  .owners a:hover { text-decoration: underline; }
+  a:focus-visible { outline: 3px solid var(--kraft); outline-offset: 3px; }
+
+  footer { padding-top: 2.5rem; font-size: .9rem; color: var(--ink-soft); }
+
+  @media (max-width: 52rem) {
+    .hero { grid-template-columns: 1fr; padding-top: 2.5rem; gap: 2rem; }
+    .facts { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="mark" aria-hidden="true"></span>
+      <span class="brand">Bin Store Scout</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Know the price before you drive.</h1>
+          <p class="lede">Bin Store Scout lists Texas bin stores with today’s price, the restock day and whether they’re actually open. Every listing is checked by a real person.</p>
+          <span class="status">Launching soon in Houston</span>
+        </div>
+
+        <figure class="ladder" aria-label="Example of a bin store price week, dropping from $10 on restock day to $1">
+          <h2>How a bin store week works</h2>
+          <p>New stock lands on restock day at the top price, then drops a little every day.</p>
+          <div class="bars">
+            <div class="day"><span class="price">$10</span><span class="bar" style="height:100%"></span><span class="name">Sat</span></div>
+            <div class="day"><span class="price">$7</span><span class="bar" style="height:70%"></span><span class="name">Sun</span></div>
+            <div class="day"><span class="price">$5</span><span class="bar" style="height:50%"></span><span class="name">Mon</span></div>
+            <div class="day"><span class="price">$4</span><span class="bar" style="height:40%"></span><span class="name">Tue</span></div>
+            <div class="day"><span class="price">$3</span><span class="bar" style="height:30%"></span><span class="name">Wed</span></div>
+            <div class="day"><span class="price">$2</span><span class="bar" style="height:20%"></span><span class="name">Thu</span></div>
+            <div class="day"><span class="price">$1</span><span class="bar" style="height:10%"></span><span class="name">Fri</span></div>
+          </div>
+        </figure>
+      </section>
+
+      <section class="facts">
+        <div>
+          <h3>Prices for every day</h3>
+          <p>See each store’s full price week, so you can choose between the best picks and the lowest price.</p>
+        </div>
+        <div>
+          <h3>Restock days and hours</h3>
+          <p>Know when new stock arrives, and which day a store closes to refill its bins.</p>
+        </div>
+        <div>
+          <h3>Checked, not copied</h3>
+          <p>Listings are verified against the store’s own posts, with the date they were last checked.</p>
+        </div>
+      </section>
+
+      <section class="owners">
+        <div>
+          <h2>Run a bin store in Texas?</h2>
+          <p>Get a free listing with your current hours, prices and restock day. Send us your details and we’ll set it up.</p>
+        </div>
+        <a href="mailto:hello@binstorescout.com?subject=Free%20listing%20for%20my%20store">Email hello@binstorescout.com</a>
+      </section>
+    </main>
+
+    <footer>© 2026 Bin Store Scout</footer>
+  </div>
+</body>
+</html>
